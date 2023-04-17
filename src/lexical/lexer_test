@@ -1,0 +1,19 @@
+
+use lexer::lexer::Lexer;
+
+#[test]
+fn test_lexer() {
+    // instância do lexer
+    let mut lexer = Lexer::new();
+
+    // lexer para analisar o código fonte de teste
+    lexer.lex("int x = 42;");
+
+    // As asserções nos resultados obtidos pelo lexer
+    assert_eq!(lexer.get_next_token(), Some(Token::Keyword(Keyword::Int)));
+    assert_eq!(lexer.get_next_token(), Some(Token::Identifier(String::from("x"))));
+    assert_eq!(lexer.get_next_token(), Some(Token::Operator(Operator::Assignment)));
+    assert_eq!(lexer.get_next_token(), Some(Token::IntegerLiteral(42)));
+    assert_eq!(lexer.get_next_token(), Some(Token::Semicolon));
+    assert_eq!(lexer.get_next_token(), None);
+}
